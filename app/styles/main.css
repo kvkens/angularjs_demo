@@ -1,0 +1,53 @@
+a {
+	cursor: pointer;
+}
+
+.pull-right{
+	padding-top: 2px;
+}
+.ace-nav>li {
+	border-left: 0px;
+}
+.hide {
+	display: none;
+}
+.row .btn-minier{
+	line-height: 14px;
+}
+.modal-footer {
+	clear: both;
+}
+.modal-center{
+	margin :15% auto;
+}
+.modal-auth{
+	width :95%;
+}
+/*测试样式来自EMM*/
+
+
+.fb{ font-weight:bold}
+.bgGrey{ background:#438EB9; color:#ffffff; border-bottom:1px solid #b3e0fa; height:50px; line-height:50px; padding-left:20px;}
+.btn_sure{ width:80px; height:35px; border-radius:5px; background:#438EB9; border:0; color:#ffffff}
+
+
+
+.permission_tab{ width:100%; overflow:hidden; }
+.permission_tab li{ overflow:hidden; line-height:22px; cursor:pointer; float:left; padding:0 20px; font-size:13px}
+.permission_tab li.cur{ background:#b3e0fa; }
+.permission_tab li.cur a{ color:#000}
+.permission_tab li a{ color:#fff; text-decoration:none}
+.permission_tab li i{ margin-right:5px;}
+
+.permission_cons{ width:100%; overflow:hidden; background:#dedede; }/*ddefca*/
+.dataList li{ overflow:hidden; }
+
+
+.data_child_main{  background:#fff; margin:10px auto; overflow:hidden; padding:10px 0;}
+.data_child_main li{ margin-left:25px; line-height:22px; margin-right:25px;}
+.data_child_main li .data_tit{ float:left;}
+
+.data_tit .label{color:#f00}
+.data_child{ background:#fff; color:#666; float:left; overflow:hidden; }
+.data_child li{ float:left; display:inline; margin-left:25px; line-height:22px;}
+.data_child_main label{color:#707070; }

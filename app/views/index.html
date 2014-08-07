@@ -1,0 +1,230 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <base href="/">
+    <title>管理平台系统</title>
+    <meta name="description" content="EMM Admin Platform">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(app) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/datatables/media/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="bower_components/datatables-colvis/css/dataTables.colVis.css" />
+    <link rel="stylesheet" href="bower_components/datatables-colreorder/css/dataTables.colReorder.css" />
+    <link rel="stylesheet" href="bower_components/datatables-tabletools/css/dataTables.tableTools.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+
+    <!--[if IE 7]>
+      <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
+    <![endif]-->
+
+    <!-- page specific plugin styles -->
+
+    <link rel="stylesheet" href="assets/css/colorbox.css" />
+
+    <!-- fonts -->
+
+    <link rel="stylesheet" href="assets/css/ace-fonts.css" />
+
+    <!-- ace styles -->
+
+    <link rel="stylesheet" href="assets/css/ace.min.css" />
+    <link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
+    <link rel="stylesheet" href="assets/css/ace-skins.min.css" />
+
+    <!--[if lte IE 8]>
+      <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+    <![endif]-->
+
+    <!-- inline styles related to this page -->
+
+    <!-- ace settings handler -->
+
+    <script src="assets/js/ace-extra.min.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+    <!--[if lt IE 9]>
+    <script src="assets/js/html5shiv.js"></script>
+    <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- build:css({.tmp,app}) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+
+</head>
+<body ng-app="emmFrontendApp">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- KISSY上传文件demo
+        <input type="file" class="g-u" id="J_UploaderBtn" value="上传文件" name="Filedata" accept="*/*"  >
+        <ul id="J_UploaderQueue"></ul>
+
+        <div id="button_container"></div>
+    -->
+
+    <div class="navbar navbar-default" id="navbar" ng-controller="NavbarCtrl" ng-if="config.user.name">
+        <script type="text/javascript">
+            try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+        </script>
+        <div class="navbar-container" id="navbar-container">
+            <div class="navbar-header pull-left">
+                <a href="#" class="navbar-brand">
+                    <img ng-src="{{ config.company.logo }}" height="25"/>
+                    <small>
+                        <span>{{ config.company.name }}</span>
+                    </small>
+                </a><!-- /.brand -->
+            </div><!-- /.navbar-header -->
+            <div class="navbar-header pull-right">
+                <ul class="nav ace-nav">
+                    <li class="light-blue">
+                        <a data-toggle="dropdown" href="/settings" class="dropdown-toggle">
+                            <img class="nav-user-photo" ng-src="{{config.user.avatar}}" alt="{{config.user.name}}'s Photo" />
+                            <span class="user-info">
+                                <small>{{config.user.role}}</small>
+                                <span>{{config.user.name}}</span>
+                            </span>
+                        </a>
+                    <li>
+                        <button class="btn btn-app btn-inverse btn-xs" ng-click="logout()" style="height: 40px; width: 40px; border-radius: 25%; margin-left: 12px;">
+                            <i class="icon-off bigger-160"></i>
+                        </button>
+                    </li>
+                </ul><!-- /.ace-nav -->
+            </div><!-- /.navbar-header -->
+        </div><!-- /.container -->
+    </div>
+
+    <div class="main-container" id="main-container" ng-controller="MainCtrl">
+        <script type="text/javascript">
+            try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+        </script>
+
+        <div class="main-container-inner">
+            <a class="menu-toggler" id="menu-toggler" href="#">
+                <span class="menu-text"></span>
+            </a>
+
+            <div ng-class="{'sidebar': config.user.name, 'hide': !config.user.name}" id="sidebar">
+                <script type="text/javascript">
+                    try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+                </script>
+                <ul class="nav nav-list">
+                    <li ng-repeat="menu in config.menus" ng-class="{'active': menu.href == url}">
+                        <a href="{{menu.href}}" ng-class="{'dropdown-toggle': menu.submenus}">
+                            <i class="{{menu.icon}}"></i>
+                            <span class="menu-text"> {{menu.name}} </span>
+                            <b ng-if="menu.submenus" class="arrow icon-angle-down"></b>
+                        </a>
+                        <ul class="submenu">
+                            <li ng-repeat="submenu in menu.submenus" ng-class="{'active': submenu.href == url}">
+                                <a href="{{submenu.href}}">
+                                    <i class="icon-double-angle-right"></i>
+                                    {{submenu.name}}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="sidebar-collapse" id="sidebar-collapse">
+                    <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+                </div>
+
+                <script type="text/javascript">
+                    try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+                </script>
+            </div>
+
+            <div class="main-content">
+                <div class="breadcrumbs" id="breadcrumbs" ng-controller="CrumbCtrl" ng-if="config.user.name">
+                    <script type="text/javascript">
+                        try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+                    </script>
+
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="icon-home home-icon"></i>
+                            <a href="#">Home</a>
+                        </li>
+                        <li class="active">{{crumb(url)}}</li>
+                    </ul><!-- .breadcrumb -->
+                </div>
+
+                <div class="page-content" ng-view></div>
+            </div><!-- /.main-content -->
+
+        </div><!-- /.main-container-inner -->
+
+    </div><!-- /.main-container -->
+
+
+    <!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+
+    <!-- build:js(app) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/datatables/media/js/jquery.dataTables.js"></script>
+    <script src="bower_components/datatables-colvis/js/dataTables.colVis.js"></script>
+    <script src="bower_components/datatables-colreorder/js/dataTables.colReorder.js"></script>
+    <script src="bower_components/datatables-tabletools/js/dataTables.tableTools.js"></script>
+    <script src="bower_components/angular-datatables/dist/angular-datatables.js"></script>
+    <script src="bower_components/angular-datatables/dist/angular-datatables.min.js"></script>
+    <script src="bower_components/kissy/build/seed-min.js"></script>
+    <script src="bower_components/ngstorage/ngStorage.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/settings.js"></script>
+        <script src="scripts/controllers/customers.js"></script>
+        <script src="scripts/services/auth.js"></script>
+        <script src="scripts/services/session.js"></script>
+        <script src="scripts/services/user.js"></script>
+        <script src="scripts/directives/mongooseError.js"></script>
+        <!-- endbuild -->
+
+
+
+        <script type="text/javascript">
+            if("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+        </script>
+        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="assets/js/typeahead-bs2.min.js"></script>
+
+        <!-- page specific plugin scripts -->
+
+        <script src="assets/js/jquery.colorbox-min.js"></script>
+        <script src="assets/js/jquery.form.js"></script>
+
+        <!-- ace scripts -->
+
+        <script src="assets/js/ace-elements.min.js"></script>
+        <script src="assets/js/ace.min.js"></script>
+        <script src="assets/js/bootbox.min.js"></script>
+        <script src="assets/js/fuelux/fuelux.wizard.min.js"></script>
+    </body>
+</html>

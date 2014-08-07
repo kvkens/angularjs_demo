@@ -1,0 +1,105 @@
+<!-- 页面布局表格开始 -->
+<div class="row" ng-controller="RoleCtrl">
+	<div class="col-xs-12">
+		<div class="code">
+			<button ng-click="add_role_modal_init()" data-toggle='modal' 
+				data-target='#add-role-modal' class="btn btn-info" style="float: right;margin: 0 10px 10px 0;">
+				<i class="icon-cloud-upload bigger-100"></i>添加角色
+			</button>
+	      <table datatable dt-options="dtOptions" dt-columns="dtColumns" class="table table-striped table-bordered"></table>
+	    </div>
+	</div>
+</div>
+<!-- 页面布局表格结束 -->
+
+<!-- 添加角色对话框开始 -->
+<div id="add-role-modal" class="modal" tabindex="-1">
+	<div class="modal-dialog modal-center">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="blue bigger">添加角色信息</h4>
+			</div>
+
+			<form id="add-role-form" class="form-horizontal" role="form" action="/customers/role" method="POST">
+				<div class="modal-body overflow-visible">
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right"> 角色名： </label>
+
+							<div class="col-sm-9">
+								<input type="text" placeholder="填写有效角色名称" name="role.name" class="col-xs-10 col-sm-5" ng-model='role.name'>
+							</div>
+						</div>
+						<div class="space-4"></div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-sm btn-primary" type="submit" onclick="$('#add-role-modal').modal('hide')">
+						<i class="icon-ok"></i>
+						添加
+					</button>
+					<button class="btn btn-sm" data-dismiss="modal">
+						<i class="icon-remove"></i>
+						取消
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- 添加角色对话框结束 -->
+
+<!-- 添加授权对话框开始 -->
+<div id="auth-role-modal" class="modal">
+	<div class="modal-dialog modal-auth">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="blue bigger">角色授权信息</h4>
+			</div>
+
+			<form id="auth-role-form" class="form-horizontal" role="form" action="/customers/role/auth" method="POST">
+				<div class="modal-body overflow-visible permission_cons">
+					<div class="col-xs-06">
+						<div class="form-group">
+							<!-- <label class="col-sm-3 control-label no-padding-right"> 角色名： </label>
+							<div class="col-sm-9">
+								<input type="text" placeholder="填写有效角色名称" name="role.name" class="col-xs-10 col-sm-5" ng-model='role.name'>
+							</div> -->
+							<div class="permission_cons" id="father">
+							    <ul class="dataList mt20 pl10 pr10" id="showPerm">
+							    </ul>
+							</div>
+						</div>
+						<div class="space-8"></div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-sm btn-primary" type="submit" onclick="$('#auth-role-modal').modal('hide')">
+						<i class="icon-ok"></i>
+						修改
+					</button>
+					<button class="btn btn-sm" data-dismiss="modal">
+						<i class="icon-remove"></i>
+						取消
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- 添加授权对话框结束 -->
+<script type="text/javascript" language="javascript">
+	/*初始化页面入口函数*/
+	$(function(){
+		/*绑定FORM表单AJAX方式*/
+		$('#add-role-form').ajaxForm(function() {
+		    alert("Thank you for your comment!");
+		});
+		/*绑定dialog打开后事件*/
+		$('#auth-role-modal').on('show.bs.modal', function (e) {
+
+		})
+	});
+</script>
